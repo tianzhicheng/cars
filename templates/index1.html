@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="javascript:;" id="login">登录</a> <br>
+<a href="javascript:;" id="register">注册</a> <br>
+<a href="javascript:;" id="tags">标签</a> <br>
+<a href="javascript:;" id="search">搜索</a> <br>
+<a href="javascript:;" id="handpick">精选</a> <br>
+<a href="javascript:;" id="attention">关注1</a> <br>
+<a href="javascript:;" id="carsOrg">2_关注</a> <br>
+<a href="javascript:;" id="addAttention">添加关注</a> <br>
+<a href="javascript:;" id="carsViedeos">视频</a> <br>
+<a href="javascript:;" id="myAttention">我的关注</a> <br>
+<a href="javascript:;" id="myHistory">我的历史</a> <br>
+<a href="javascript:;" id="myFavorite">我的收藏</a> <br>
+<a href="javascript:;" id="addFavorite">添加收藏</a> <br>
+<a href="javascript:;" id="addHistory">添加历史</a> <br>
+<a href="javascript:;" id="addComment">添加评论</a> <br>
+<a href="javascript:;" id="comments">评论列表</a> <br>
+<a href="javascript:;" id="carsViedowDetails">视频详情</a> <br>
+</body>
+
+<script src="/static/js/jquery.min.js" type="text/javascript"></script>
+<script>
+    var log = console.log.bind(console)
+    var userInfo;
+    $('#login').click(function () {
+        encryptedData = 'CiyLU1Aw2KjvrjMdj8YKliAjtP4gsMZMQmRzooG2xrDcvSnxIMXFufNstNGTyaGS9uT5geRa0W4oTOb1WT7fJlAC'
+        iv = 'r7BXXKkLb8qrSNn05n0qiA=='
+        code = 'xcvxc'
+        $.ajax({
+            url: '/login/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'encryptedData': encryptedData,
+                'iv': iv,
+                'code': code
+            },
+            success: function (result) {
+                log(result)
+                userInfo = result.data.userInfo
+            }
+        })
+    })
+    {#            var item = {}#}
+    {#        item.data = 1#}
+    {#        item.value = 'a'#}
+    {#        item.arrs = [1,2,3]#}
+    {#            var user = userInfo#}
+    {#            user.item = item#}
+
+
+    $('#register').click(function () {
+        var openId = 'sfsefsefsefsefse'
+
+        $.ajax({
+            url: '/register/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'userInfo': userInfo,
+                'openId': openId,
+            },
+            success: function (result) {
+                log(result)
+                userInfo = result.data.userInfo
+            }
+        })
+    })
+
+    $('#tags').click(function () {
+
+        $.ajax({
+            url: '/getTags/',
+            type: 'GET',
+            contentType: "application/json; charset=utf-8",
+            data: {},
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+
+    $('#search').click(function () {
+        {#        var content = '帅气';//标签#}
+        var content = 'gdf'; //视频名称
+        $.ajax({
+            url: '/carsSearch/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'content': content
+            },
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#handpick').click(function () {
+        $.ajax({
+            url: '/handpick/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'pageSize': 2,
+                'curPage': 1,
+                'type': 0,
+
+            },
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#attention').click(function () {
+        $.ajax({
+            url: '/attention/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'pageSize': 2,
+                'curPage': 1,
+                'openId': 2
+            },
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#carsOrg').click(function () {
+        $.ajax({
+            url: '/carsOrg/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'pageSize': 2,
+                'curPage': 1,
+                'openId': 2,
+                'videosCurPage': 1,
+                'videosPageSize': 3,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#addAttention').click(function () {
+        $.ajax({
+            url: '/addAttention/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'orgId': 2,
+                'openId': 2,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#carsViedeos').click(function () {
+        $.ajax({
+            url: '/carsViedeos/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'type': '0',
+                'pageSize': 10,
+                'curPage': 1,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#myAttention').click(function () {
+        $.ajax({
+            url: '/myHistory/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'pageSize': 10,
+                'curPage': 1,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#myFavorite').click(function () {
+        $.ajax({
+            url: '/myFavorite/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'pageSize': 10,
+                'curPage': 1,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#addFavorite').click(function () {
+        $.ajax({
+            url: '/addFavorite/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'resourceId': '2',
+                'type': '1',
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#addHistory').click(function () {
+        $.ajax({
+            url: '/addHistory/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'resourceId': '2',
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#myHistory').click(function () {
+        $.ajax({
+            url: '/myHistory/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'pageSize': 10,
+                'curPage': 1,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+
+    $('#addComment').click(function () {
+        $.ajax({
+            url: '/addComment/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'resourceId': '2',
+                'content': '王华奇大傻逼'
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#comments').click(function () {
+        $.ajax({
+            url: '/comments/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'pageSize': 10,
+                'curPage': 1,
+                'resourceId':2,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+    $('#carsViedowDetails').click(function () {
+        $.ajax({
+            url: '/carsViedowDetails/',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: {
+                'openId': '2',
+                'resourceId':2,
+            },
+
+            success: function (result) {
+                log(result)
+            }
+        })
+    })
+</script>
+</html>
